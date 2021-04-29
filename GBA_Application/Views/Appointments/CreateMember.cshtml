@@ -1,0 +1,74 @@
+﻿@model GBA_Application.Models.Appointments
+
+@{
+    ViewData["Title"] = "Request Appointment";
+}
+
+<h1>Book Appointment</h1>
+<h4>You will be emailed if your appointment is approved or changed</h4>
+<h3>Create a vehicle before requesting an appointment</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateMember">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ServiceId" class="control-label"></label>
+                <select asp-for="ServiceId" class="form-control" asp-items="ViewBag.ServiceId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="VehicleId" class="control-label"></label> <br />
+                <a asp-controller="Vehicles" asp-action="Create">Add a Vehicle</a>
+                <select asp-for="VehicleId" class="form-control" asp-items="ViewBag.VehicleId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppointmentDate" class="control-label"></label>
+                <input asp-for="AppointmentDate" class="form-control" />
+                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                <div class="text-danger">@ViewBag.dateError</div>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="AppointmentTime" class="control-label"></label>
+                <input asp-for="AppointmentTime" class="form-control" />
+                <span asp-validation-for="AppointmentTime" class="text-danger"></span>
+            </div>*@
+            <div>
+                <label asp-for="AppointmentTime" class="control-label">Appointment Time</label>
+                <select asp-for="AppointmentTime" class="form-control">
+                    <option value="09:00:00">9:00 AM</option>
+                    <option value="09:30:00">9:30 AM</option>
+                    <option value="10:00:00">10:00 AM</option>
+                    <option value="10:30:00">10:30 AM</option>
+                    <option value="11:00:00">11:00 AM</option>
+                    <option value="11:30:00">11:30 AM</option>
+                    <option value="12:00:00">12:00 PM</option>
+                    <option value="12:30:00">12:30 PM</option>
+                    <option value="13:00:00">1:00 PM</option>
+                    <option value="13:30:00">1:30 PM</option>
+                    <option value="14:00:00">2:00 PM</option>
+                    <option value="14:30:00">2:30 PM</option>
+                    <option value="15:00:00">3:00 PM</option>
+                    <option value="15:30:00">3:30 PM</option>
+                    <option value="16:00:00">4:00 PM</option>
+                    <option value="16:30:00">4:30 PM</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="MemberIndex">Back</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

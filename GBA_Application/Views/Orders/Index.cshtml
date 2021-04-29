@@ -1,0 +1,171 @@
+﻿@model IEnumerable<GBA_Application.Models.Orders>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>Orders</h1>
+
+<p>
+    <a asp-action="Create">Add New Order</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Completed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Appointment) Info
+            </th>
+            <th>
+                Order Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Completed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Appointment.ApptInfo)
+            </td>
+                @if (item.OrderStatuses.Count == 0)
+                {
+                    <td>
+                        Order Not Started <br />
+                        <a asp-action="OrderStarted" asp-route-id="@item.OrderId">Mark Order as Started</a>
+                    </td>
+                }
+                @foreach (var status in item.OrderStatuses)
+                {
+                    if (status.StatusId == 1)
+                    {
+                    <td>
+                        Order Started <br />
+                        <form asp-action="chooseStatus">
+                            <div>
+                                <select name="status" for="status" class="form-control">
+                                    <option value="progress-@item.OrderId">In Progress</option>
+                                    <option value="delayed-@item.OrderId">Delayed</option>
+                                    <option value="contact-@item.OrderId">Contact Customer</option>
+                                    <option value="cancelled-@item.OrderId">Cancelled</option>
+                                    <option value="completed-@item.OrderId">Completed</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </td>
+                }
+                else if (status.StatusId == 2)
+                {
+                    <td>
+                        Order Delayed <br />
+                        <form asp-action="chooseStatus">
+                            <div>
+                                <select name="status" for="status" class="form-control">
+                                    <option value="progress-@item.OrderId">In Progress</option>
+                                    <option value="contact-@item.OrderId">Contact Customer</option>
+                                    <option value="cancelled-@item.OrderId">Cancelled</option>
+                                    <option value="completed-@item.OrderId">Completed</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </td>
+                }
+                else if (status.StatusId == 3)
+                {
+                    <td>
+                        Contact Customer <br />
+                        <form asp-action="chooseStatus">
+                            <div>
+                                <select name="status" for="status" class="form-control">
+                                    <option value="delayed-@item.OrderId">Delayed</option>
+                                    <option value="progress-@item.OrderId">In Progress</option>
+                                    <option value="cancelled-@item.OrderId">Cancelled</option>
+                                    <option value="completed-@item.OrderId">Completed</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </td>
+                }
+                else if (status.StatusId == 4)
+                {
+                    <td>
+                        Order Completed
+                    </td>
+                }
+                else if (status.StatusId == 5)
+                {
+                    <td>
+                        Order Cancelled
+                    </td>
+                }
+                else if (status.StatusId == 6)
+                {
+                    <td>
+                        Order In Progress <br />
+                        <form asp-action="chooseStatus">
+                            <div>
+                                <select name="status" for="status" class="form-control">
+                                    <option value="delayed-@item.OrderId">Delayed</option>
+                                    <option value="contact-@item.OrderId">Contact Customer</option>
+                                    <option value="cancelled-@item.OrderId">Cancelled</option>
+                                    <option value="completed-@item.OrderId">Completed</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Order Not Started
+                    </td>
+                }
+            }
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a> |
+                </td>
+            </tr>
+}
+    </tbody>
+</table>

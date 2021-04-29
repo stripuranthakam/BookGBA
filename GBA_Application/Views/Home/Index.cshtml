@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/js/site.js" />
+
+<div class="text-center">
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+
+        <!-- Full-width images with number and caption text -->
+        <div class="mySlides fade">
+            <div class="numbertext">1 / 3</div>
+            <img src="~/images/slider/porsche.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">2 / 3</div>
+            <img src="~/images/slider/rs6.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">3 / 3</div>
+            <img src="~/images/slider/bmwm4.jpg" style="width:100%">
+        </div>
+
+    </div>
+    <br>
+
+    <!-- The dots/circles -->
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+
+    <h3>
+        <a asp-area="" asp-controller="Services" asp-action="MemberIndex">View our Services</a>
+    </h3>
+    <h4>
+        Log in to <a asp-area="" asp-controller="Appointments" asp-action="CreateMember">request an appointment</a> or <a asp-area="" asp-controller="Members" asp-action="Create">create a free account </a>
+        today!
+    </h4>
+</div>

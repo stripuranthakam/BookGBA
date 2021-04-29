@@ -1,0 +1,115 @@
+﻿@model IEnumerable<GBA_Application.Models.Orders>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>Your Orders</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Completed)
+            </th>
+            <th>
+                Your Appointment For
+            </th>
+            <th>
+                Status
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Completed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Appointment.Service.Name)
+            </td>
+            <td>
+                @if (item.OrderStatuses.Count == 0)
+                {
+                <td>
+                    Order Not Started <br />
+                </td>
+            }
+                @foreach (var status in item.OrderStatuses)
+                {
+                    if (status.StatusId == 1)
+                    {
+                        <td>
+                            Order Started <br />
+                            Start Date: @status.StartDate.ToShortDateString() <br />
+                            Estimated Finish Date: @status.EstimatedFinishDate.ToShortDateString() <br />
+                            Employee Working on your Order: @status.Employee.FirstName @status.Employee.LastName
+                        </td>
+                    }
+                    else if (status.StatusId == 2)
+                    {
+                        <td>
+                            Order Delayed <br />
+                            Start Date: @status.StartDate.ToShortDateString() <br />
+                            Estimated Finish Date: @status.EstimatedFinishDate.ToShortDateString() <br />
+                            Employee Working on your Order: @status.Employee.FirstName @status.Employee.LastName
+                        </td>
+                    }
+                    else if (status.StatusId == 3)
+                    {
+                        <td>
+                            Contact <br />
+                            Start Date: @status.StartDate.ToShortDateString() <br />
+                            Estimated Finish Date: @status.EstimatedFinishDate.ToShortDateString() <br />
+                            Employee Working on your Order: @status.Employee.FirstName @status.Employee.LastName
+                        </td>
+                    }
+                    else if (status.StatusId == 4)
+                    {
+                        <td>
+                            Order Completed <br />
+                            Start Date: @status.StartDate.ToShortDateString() <br />
+                            Finish Date: @status.FinishDate.ToShortDateString() 
+                        </td>
+                    }
+                    else if (status.StatusId == 5)
+                    {
+                        <td>
+                            Order Cancelled 
+                        </td>
+                    }
+                    else if (status.StatusId == 6)
+                    {
+                        <td>
+                            Order In Progress <br />
+                            Start Date: @status.StartDate.ToShortDateString() <br />
+                            Estimated Finish Date: @status.EstimatedFinishDate.ToShortDateString() <br />
+                            Employee Working on your Order: @status.Employee.FirstName @status.Employee.LastName
+                        </td>
+                    }
+                }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

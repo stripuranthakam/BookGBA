@@ -1,0 +1,17 @@
+﻿@model GBA_Application.Models.Members
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Member Home";
+    ViewData["UserEmail"] = $"{Context.Session.GetString("email")}";
+    ViewData["UserFullName"] = $"{Context.Session.GetString("userFullName")}";
+
+}
+
+<h1>Welcome @ViewData["UserFullName"]</h1>
+<a asp-area="" asp-controller="Appointments" asp-action="MemberIndex">View Appointments</a>
+<br />
+<a asp-area="" asp-controller="Vehicles" asp-action="Index">Vehicles</a>
+<br />
+<a asp-area="" asp-controller="Orders" asp-action="MemberIndex">Orders</a>
+<br />
